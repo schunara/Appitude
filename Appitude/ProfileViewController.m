@@ -8,6 +8,12 @@
 
 #import "ProfileViewController.h"
 #import "ProfileCustomCell.h"
+//#import "NSData+Base64.h"
+#import "JSON.h"
+#import "SHK.h"
+#import "SHKTwitter.h"
+#import "SHKFacebook.h"
+
 #define aArraTitle [NSArray arrayWithObjects:@"General",@"Privacy",@"Help Center", nil]
 
 @implementation ProfileViewController
@@ -128,6 +134,9 @@
 -(IBAction)btnfacebookClick:(id)sender
 {
     NSLog(@"Facebook");
+     SHKItem *item=[SHKItem text:@"Let enjoy the world.."];
+    //SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Hi this is for test.."];
+    [NSClassFromString(@"SHKFacebook") performSelector:@selector(shareItem:) withObject:item];
 }
 -(IBAction)btnGoogleClick:(id)sender
 {
@@ -137,6 +146,12 @@
 -(IBAction)btntwitterClick:(id)sender
 {
     NSLog(@"Twitter");
+    
+    SHKItem *item=[SHKItem text:@"Let enjoy the world.."];
+    
+   // + (SHKItem *)image:(UIImage *)image title:(NSString *)title
+   // SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Leave life king size.."];
+    [NSClassFromString(@"SHKTwitter") performSelector:@selector(shareItem:) withObject:item];
 }
 
 #pragma mark +++++++++++++++++++ Table Methods ++++++++++++++++++++++++++++++++++

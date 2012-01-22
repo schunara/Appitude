@@ -22,6 +22,8 @@
 #import "ChangeFontSizeVC.h"
 
 
+#import "GANTracker.h"
+
 
 #define tableContentVW   30
 #define NotesVW          31
@@ -66,6 +68,10 @@
 @synthesize viewForOpacity;
 
 
+// Dispatch period in seconds
+static const NSInteger kGANDispatchPeriodSec = 10;
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -85,7 +91,18 @@
     [webView setDelegate:self];
     
     
-    
+    [[GANTracker sharedTracker] startTrackerWithAccountID:@"UA-23551325-1"//@"UA-22655966-1"
+										   dispatchPeriod:kGANDispatchPeriodSec
+												 delegate:nil];
+	
+	NSError *error;
+	if (![[GANTracker sharedTracker] trackEvent:@"Visit"
+										 action:@"App_Started"
+										  label:[UIDevice currentDevice].uniqueIdentifier
+										  value:1
+									  withError:&error]) {
+		NSLog(@"error in trackEvent");
+	}
     
     
 	UIScrollView* sv = nil;
@@ -591,13 +608,15 @@
 -(IBAction)LeftBarBtnClicked:(id)sender
 {
     UIButton *btnClicked = (UIButton *)sender;
-    
+     NSError *error;
    // selectedBtn = btnClicked.tag - 30;
     if (btnClicked.tag == selectedBtn.tag) {
         btnClicked.backgroundColor = [UIColor clearColor];
         selectedViewIndex = 0;
         switch (selectedBtn.tag) {
 			case tableContentVW:
+
+                
                 [self animateToRemoveViewController:objTableOfContentVC.view];
 				[objTableOfContentVC.view removeFromSuperview];
 				[objTableOfContentVC release];
@@ -605,18 +624,21 @@
 				break;
 			case NotesVW:
                 [self animateToRemoveViewController:objNotesViewController.view];
+                
 				[objNotesViewController.view removeFromSuperview];
 				[objNotesViewController release];
 				NSLog(@"pre - notes");
 				break;
 			case BrowserVW:
                 [self animateToRemoveViewController:objBrowserVC.view];
-				[objBrowserVC.view removeFromSuperview];
+                
+                [objBrowserVC.view removeFromSuperview];
 				[objBrowserVC release];
 				NSLog(@"Pre - objBrowserVC");
 				break;
 			case BadgesVW:
                 [self animateToRemoveViewController:objBadgesViewController.view];
+                
 				[objBadgesViewController.view removeFromSuperview];
 				[objBadgesViewController release];
 				NSLog(@"Pre - stocks");
@@ -679,24 +701,57 @@
 		switch (selectedBtn.tag) {
 			case tableContentVW:
 				
+                if (![[GANTracker sharedTracker] trackEvent:@"TableOfContent"
+                                                     action:@"Visit"
+                                                      label:[UIDevice currentDevice].uniqueIdentifier
+                                                      value:1
+                                                  withError:&error]) {
+                    NSLog(@"error in trackEvent");
+                }
+
 				objTableOfContentVC = [[TableOfContentVC alloc] initWithNibName:@"TableOfContentVC" bundle:nil];
                 objTableOfContentVC.objMainViewController = self;
                 [self animateToInsertView:objTableOfContentVC.view];
 	
 				break;
 			case NotesVW:
+                
+                if (![[GANTracker sharedTracker] trackEvent:@"Notes"
+                                                     action:@"Visit"
+                                                      label:[UIDevice currentDevice].uniqueIdentifier
+                                                      value:1
+                                                  withError:&error]) {
+                    NSLog(@"error in trackEvent");
+                }
+
 				objNotesViewController = [[NotesViewController alloc] initWithNibName:@"NotesViewController" bundle:nil];
 				[self animateToInsertView:objNotesViewController.view];
 	
 				break;
 			case BrowserVW:
 				
+                if (![[GANTracker sharedTracker] trackEvent:@"Browse"
+                                                     action:@"Visit"
+                                                      label:[UIDevice currentDevice].uniqueIdentifier
+                                                      value:1
+                                                  withError:&error]) {
+                    NSLog(@"error in trackEvent");
+                }
+
 				objBrowserVC = [[BrowserVC alloc] initWithNibName:@"BrowserVC" bundle:nil];
 				[self animateToInsertView:objBrowserVC.view];
 				
 				break;
 			case BadgesVW:
 				
+                if (![[GANTracker sharedTracker] trackEvent:@"Badges"
+                                                     action:@"Visit"
+                                                      label:[UIDevice currentDevice].uniqueIdentifier
+                                                      value:1
+                                                  withError:&error]) {
+                    NSLog(@"error in trackEvent");
+                }
+
 				objBadgesViewController = [[BadgesViewController alloc] initWithNibName:@"BadgesViewController" bundle:nil];
 
 				[self animateToInsertView:objBadgesViewController.view];
@@ -704,6 +759,14 @@
 				break;
 			case SettingVW:
 				
+                if (![[GANTracker sharedTracker] trackEvent:@"Profile"
+                                                     action:@"Visit"
+                                                      label:[UIDevice currentDevice].uniqueIdentifier
+                                                      value:1
+                                                  withError:&error]) {
+                    NSLog(@"error in trackEvent");
+                }
+
 				objProfileViewController = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
               ;
 				[self animateToInsertView:objProfileViewController.view];
