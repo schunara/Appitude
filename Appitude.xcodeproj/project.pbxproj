@@ -63,6 +63,8 @@
 		9B7F9C0414BF334F0073BF5F /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7F9C0214BF334F0073BF5F /* ProfileViewController.m */; };
 		9B7F9C0514BF334F0073BF5F /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B7F9C0314BF334F0073BF5F /* ProfileViewController.xib */; };
 		9B7F9C0814BF3D200073BF5F /* ProfileCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B7F9C0714BF3D200073BF5F /* ProfileCustomCell.xib */; };
+		9B85CA4D14CE5DA3000EB970 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B85CA4B14CE5DA3000EB970 /* libGoogleAnalytics.a */; };
+		9B85CA4E14CE5DA4000EB970 /* libGoogleAnalytics_NoThumb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B85CA4C14CE5DA3000EB970 /* libGoogleAnalytics_NoThumb.a */; };
 		9B88276514BB520D008B1C1E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B88276414BB520D008B1C1E /* UIKit.framework */; };
 		9B88276714BB520D008B1C1E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B88276614BB520D008B1C1E /* Foundation.framework */; };
 		9B88276914BB520D008B1C1E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B88276814BB520D008B1C1E /* CoreGraphics.framework */; };
@@ -174,8 +176,6 @@
 		9BD201A514CC8F0A00AB7B81 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD201A214CC8F0A00AB7B81 /* MessageUI.framework */; };
 		9BD201A614CC8F0A00AB7B81 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD201A314CC8F0A00AB7B81 /* Security.framework */; };
 		9BD201A714CC8F0A00AB7B81 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD201A414CC8F0A00AB7B81 /* SystemConfiguration.framework */; };
-		9BD201AF14CC936400AB7B81 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD201AD14CC936400AB7B81 /* libGoogleAnalytics.a */; };
-		9BD201B014CC936400AB7B81 /* libGoogleAnalytics_NoThumb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD201AE14CC936400AB7B81 /* libGoogleAnalytics_NoThumb.a */; };
 		9BD201D414CC981200AB7B81 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD201B814CC981200AB7B81 /* NSObject+SBJSON.m */; };
 		9BD201D514CC981200AB7B81 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD201BA14CC981200AB7B81 /* NSString+SBJSON.m */; };
 		9BD201D614CC981200AB7B81 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD201BC14CC981200AB7B81 /* SBJSON.m */; };
@@ -258,6 +258,9 @@
 		9B7F9C0214BF334F0073BF5F /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		9B7F9C0314BF334F0073BF5F /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		9B7F9C0714BF3D200073BF5F /* ProfileCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileCustomCell.xib; sourceTree = "<group>"; };
+		9B85CA4A14CE5DA3000EB970 /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
+		9B85CA4B14CE5DA3000EB970 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
+		9B85CA4C14CE5DA3000EB970 /* libGoogleAnalytics_NoThumb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_NoThumb.a; sourceTree = "<group>"; };
 		9B88276014BB520D008B1C1E /* Appitude.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Appitude.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B88276414BB520D008B1C1E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9B88276614BB520D008B1C1E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -468,9 +471,6 @@
 		9BD201A214CC8F0A00AB7B81 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9BD201A314CC8F0A00AB7B81 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9BD201A414CC8F0A00AB7B81 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		9BD201AC14CC936400AB7B81 /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
-		9BD201AD14CC936400AB7B81 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
-		9BD201AE14CC936400AB7B81 /* libGoogleAnalytics_NoThumb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_NoThumb.a; sourceTree = "<group>"; };
 		9BD201B614CC981200AB7B81 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		9BD201B714CC981200AB7B81 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		9BD201B814CC981200AB7B81 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -518,8 +518,8 @@
 				9B88276514BB520D008B1C1E /* UIKit.framework in Frameworks */,
 				9B88276714BB520D008B1C1E /* Foundation.framework in Frameworks */,
 				9B88276914BB520D008B1C1E /* CoreGraphics.framework in Frameworks */,
-				9BD201AF14CC936400AB7B81 /* libGoogleAnalytics.a in Frameworks */,
-				9BD201B014CC936400AB7B81 /* libGoogleAnalytics_NoThumb.a in Frameworks */,
+				9B85CA4D14CE5DA3000EB970 /* libGoogleAnalytics.a in Frameworks */,
+				9B85CA4E14CE5DA4000EB970 /* libGoogleAnalytics_NoThumb.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,9 +591,9 @@
 		9B0E6EA714BB740200E297EC /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				9B85CA4914CE5DA3000EB970 /* Google Analytics */,
 				9BD201B514CC981200AB7B81 /* JSON */,
 				9BD201C314CC981200AB7B81 /* JSON API */,
-				9BD201AB14CC936400AB7B81 /* Google Analytics */,
 				9BD200C414CC8E8700AB7B81 /* ShareKit */,
 				9B9AC10214BE066500A88055 /* Epub */,
 				9B9AC0C414BE03DF00A88055 /* TouchXml */,
@@ -747,6 +747,16 @@
 				9B7B76C014BCAAA100CC14C6 /* DownArrow.png */,
 			);
 			name = Badges;
+			sourceTree = "<group>";
+		};
+		9B85CA4914CE5DA3000EB970 /* Google Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				9B85CA4A14CE5DA3000EB970 /* GANTracker.h */,
+				9B85CA4B14CE5DA3000EB970 /* libGoogleAnalytics.a */,
+				9B85CA4C14CE5DA3000EB970 /* libGoogleAnalytics_NoThumb.a */,
+			);
+			path = "Google Analytics";
 			sourceTree = "<group>";
 		};
 		9B88275514BB520D008B1C1E = {
@@ -1266,17 +1276,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		9BD201AB14CC936400AB7B81 /* Google Analytics */ = {
-			isa = PBXGroup;
-			children = (
-				9BD201AC14CC936400AB7B81 /* GANTracker.h */,
-				9BD201AD14CC936400AB7B81 /* libGoogleAnalytics.a */,
-				9BD201AE14CC936400AB7B81 /* libGoogleAnalytics_NoThumb.a */,
-			);
-			name = "Google Analytics";
-			path = "../../../../../Downloads/Appitude 2/Appitude/Google Analytics";
-			sourceTree = "<group>";
-		};
 		9BD201B514CC981200AB7B81 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -1664,6 +1663,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Downloads/Appitude 2/Appitude/Google Analytics\"",
+					"\"$(SRCROOT)/Appitude/Google Analytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1681,6 +1681,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Downloads/Appitude 2/Appitude/Google Analytics\"",
+					"\"$(SRCROOT)/Appitude/Google Analytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
