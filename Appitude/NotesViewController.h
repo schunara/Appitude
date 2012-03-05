@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NotesViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
+@interface NotesViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate,UIActionSheetDelegate>
 {
 
 	IBOutlet UIButton *discussionBtn;
@@ -31,10 +31,11 @@
 	int discussionViewVisible;
 	
 	int myNoteSelected;
+    NSString *postText;
 	
 }
 
--(IBAction)discussionButton_Clicked;
+//-(IBAction)discussionButton_Clicked;
 -(IBAction)addNoteButon_Clicked;
 -(IBAction)myNoteButon_Clicked;
 -(IBAction)everyoneButon_Clicked;
@@ -43,8 +44,7 @@
 -(NSMutableArray *)GetChildNotes:(NSMutableDictionary *)dic;
 -(void)AddChildNotes:(NSIndexPath *)indexPath;
 -(void)removeChildNotes:(NSIndexPath *)indexPath;
-
--(IBAction)btnHeaderClick:(id)sender;
+-(void)dismissAddNoteView;
 
 @end
 

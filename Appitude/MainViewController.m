@@ -83,6 +83,8 @@ static const NSInteger kGANDispatchPeriodSec = 10;
 - (void)viewDidLoad
 {
     
+    
+    
     [self loadEpub:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"vhugo" ofType:@"epub"]]];
     
     [super viewDidLoad];
@@ -114,6 +116,19 @@ static const NSInteger kGANDispatchPeriodSec = 10;
 		}
 	}
 	currentTextSize = 100;	 
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"userName"])
+    {
+        [vwRegistration viewWithTag:11].layer.cornerRadius = 5;
+        [vwRegistration viewWithTag:11].layer.borderWidth = 2;
+        [[vwRegistration viewWithTag:11] viewWithTag:22].layer.cornerRadius = 5;
+
+        
+    }
+    else
+    {
+        [vwRegistration removeFromSuperview];
+    }
 	
 //	UISwipeGestureRecognizer* rightSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(gotoNextPage)] autorelease];
 //	[rightSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionUp];
@@ -605,6 +620,88 @@ static const NSInteger kGANDispatchPeriodSec = 10;
 
 #pragma mark - Button Click Methods
 
+- (IBAction)registerBtnClicked:(id)sender
+{
+    if ([txtEmailid.text length] > 0 && [txtScreenName.text length] > 4) {
+        if ([self isEmail:txtEmailid.text]) {
+            
+            [vwRegistration removeFromSuperview];
+            [[NSUserDefaults standardUserDefaults] setObject:txtScreenName.text forKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults] setObject:txtEmailid.text forKey:@"emailId"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self CallRegistrationWS];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Error" message:@"Please enter valid email id" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+        }
+    }
+    else if([txtEmailid.text length] > 0 && [txtScreenName.text length] < 5){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Error" message:@"Please enter username of more than 4 character" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Error" message:@"Please enter username and emailid to resgister this application" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+    }
+}
+
+- (void) CallRegistrationWS
+{
+   
+    NSString *urlString =[NSString stringWithFormat:@"http://appitude.com/publish/webservices/response.php?data={\"function\":\"ReaderRegistration\", \"DeviceId\":\"1\", \"emailId\":\"%@\",\"BookId\":\"1\", \"ScreenName\":\"%@\" }",txtEmailid.text,txtScreenName.text];
+    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init] ; 
+    
+    [request setURL:[NSURL URLWithString:urlString]];
+    [request setTimeoutInterval:10];
+    [request setHTTPMethod:@"GET"];
+    
+    NSURLResponse *response=nil;
+    NSError *err=nil;
+    
+    NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: &response error: &err ]; 
+    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"%@",returnString);
+}
+
+-(BOOL) isEmail:(NSString*) email
+{
+	NSRange range;
+	int noOfAtTheRate=0;
+	NSString *testEmail=[NSString stringWithString:email];
+	while ((range=[email rangeOfString:@"@"]).location!=NSNotFound && range.location!=0) {
+		noOfAtTheRate++;
+		email=[email stringByReplacingCharactersInRange:range withString:@""];
+		if(email==nil)break;
+	}
+	email=[NSString stringWithString:testEmail];
+	if(noOfAtTheRate!=1)return NO;
+	if((range=[email rangeOfString:@"."]).location==NSNotFound) {
+		return NO;
+	}
+	
+	email=[NSString stringWithString:testEmail];
+	char firstChar=[email characterAtIndex:0];
+	char no='0';
+	while (no!='9') {
+		if(no==firstChar)return NO;
+		no++;
+	}
+	return YES;
+	
+	
+}
+
 -(IBAction)LeftBarBtnClicked:(id)sender
 {
     UIButton *btnClicked = (UIButton *)sender;
@@ -779,7 +876,7 @@ static const NSInteger kGANDispatchPeriodSec = 10;
 	}
     
    
-    
+    [self updatePagination]; 
     
 }
 
@@ -809,7 +906,7 @@ static const NSInteger kGANDispatchPeriodSec = 10;
     }
 	
 	[UIView commitAnimations];
-    [self updatePagination];
+  //  [self updatePagination];
 }
 
 -(void)animateToInsertView:(UIView *)inView
@@ -838,7 +935,7 @@ static const NSInteger kGANDispatchPeriodSec = 10;
         inView.frame=CGRectMake(53, 57, 450, 690);
     }
     inView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [self updatePagination];
+    //[self updatePagination];
     switch (selectedBtn.tag) {
         case tableContentVW:
             [objTableOfContentVC viewDidLoad];

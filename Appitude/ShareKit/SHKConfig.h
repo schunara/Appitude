@@ -69,8 +69,8 @@
  2. 'Application Type' should be set to BROWSER (not client)
  3. 'Callback URL' should match whatever you enter in SHKTwitterCallbackUrl.  The callback url doesn't have to be an actual existing url.  The user will never get to it because ShareKit intercepts it before the user is redirected.  It just needs to match.
  */
-#define SHKTwitterConsumerKey		@"E6SsU5KuJBaw2uXJBsGXg" //CeV2un3TxKBy6PKo2luyXQ
-#define SHKTwitterSecret			@"dqvAUuKVnbkB9jVEfv9QNdkzRzeiMjpHcPUg1PL48"//PuaC0ewcicKaFs8BCL3ne5wxEOlRMN3jAnRVEVHXPo
+#define SHKTwitterConsumerKey		@"CeV2un3TxKBy6PKo2luyXQ"//"E6SsU5KuJBaw2uXJBsGXg"
+#define SHKTwitterSecret			@"PuaC0ewcicKaFs8BCL3ne5wxEOlRMN3jAnRVEVHXPo"// dqvAUuKVnbkB9jVEfv9QNdkzRzeiMjpHcPUg1PL48
 #define SHKTwitterCallbackUrl		@"http://www.google.com" // You need to set this if using OAuth, see note above (xAuth users can skip it)
 #define SHKTwitterUseXAuth			0 // To use xAuth, set to 1
 #define SHKTwitterUsername			@"Test" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)

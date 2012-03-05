@@ -8,13 +8,9 @@
 
 #import "NotesViewController.h"
 #import "discussionCell.h"
-#import "SHK.h"
-#import "SHKTwitter.h"
-#import "SHKFacebook.h"
 
 @implementation NotesViewController
 
-static int t = 1;
 
 /*
 // The designated initializer. Override to perform setup that is required before the view is loaded.
@@ -40,8 +36,8 @@ static int t = 1;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad 
 {
-	self.view.backgroundColor = [UIColor clearColor];
-	
+	discussionView.hidden=FALSE;
+	discussionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NoteBG.png"]];
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 	tblView.backgroundColor = [UIColor clearColor];
     [super viewDidLoad];
@@ -114,12 +110,13 @@ static int t = 1;
 	}
 	
 	arrToShow= [self GetParentNotes:arrAllNotes];
-	AddNoteView.frame=CGRectMake(tblView.frame.origin.x, 1000, tblView.frame.size.width, tblView.frame.size.height);
+	//AddNoteView.frame=CGRectMake(tblView.frame.origin.x, 1000, tblView.frame.size.width, tblView.frame.size.height);
     
     
     
     
 //    tblView.frame=CGRectMake(5, 45, discussionView.frame.size.width-30, discussionView.frame.size.height-30);
+    discussionView.frame=self.view.frame;
 	topViewDiscussion.frame=CGRectMake(5, 5, self.view.frame.size.width-30, 38);
 	lblNote.frame=CGRectMake(topViewDiscussion.frame.origin.x+5, 5, 100, 30);
 	BtnMyNote.frame=CGRectMake(topViewDiscussion.frame.origin.x+topViewDiscussion.frame.size.width-200, 5, 70, 30);
@@ -134,6 +131,13 @@ static int t = 1;
 	{
 		imgLine.frame=CGRectMake(BtnEveryone.frame.origin.x, 30, BtnEveryone.frame.size.width, 3);
 	}
+    
+
+    
+    
+    
+    
+    
 
 	[tblView reloadData];
     //[self discussionButton_Clicked];
@@ -147,25 +151,23 @@ static int t = 1;
 {
 	if (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
 	{
-        // self.view.frame=CGRectMake(53, 57, 450, 940);
 		if (discussionViewVisible)
 		{
-			discussionView.frame=CGRectMake(94, 20, 279, 708);
+			discussionView.frame=CGRectMake(94, 20, 523, 978);
 			otherView.frame=CGRectMake(638, 20, 599, 978);
 		}
 		else
 		{
 			discussionView.frame=CGRectMake(94, 20, 0, 978);
 			otherView.frame=CGRectMake(117, 20, 640, 978);
-            
+
 		}
 	}
 	else
 	{
-       // self.view.frame=CGRectMake(53, 57, 586, 690);
 		if (discussionViewVisible)
 		{
-			otherView.frame=CGRectMake(770, 20, 523, 978); 
+			otherView.frame=CGRectMake(770, 20, 279, 708);
 			discussionView.frame=CGRectMake(94, 20, 661, 708);
 		}
 		else
@@ -174,7 +176,7 @@ static int t = 1;
 			discussionView.frame=CGRectMake(94, 20, 0, 708);
 		}
 	}
-	tblView.frame=CGRectMake(5, 45, self.view.frame.size.width-30, self.view.frame.size.height-50);
+//	tblView.frame=CGRectMake(5, 45, discussionView.frame.size.width-30, discussionView.frame.size.height-30);
 	topViewDiscussion.frame=CGRectMake(5, 5, self.view.frame.size.width-30, 38);
 	lblNote.frame=CGRectMake(topViewDiscussion.frame.origin.x+5, 5, 100, 30);
 	BtnMyNote.frame=CGRectMake(topViewDiscussion.frame.origin.x+topViewDiscussion.frame.size.width-200, 5, 70, 30);
@@ -190,7 +192,6 @@ static int t = 1;
 		imgLine.frame=CGRectMake(BtnEveryone.frame.origin.x, 30, BtnEveryone.frame.size.width, 3);
 	}
 
-	AddNoteView.frame=tblView.frame;
 	[tblView reloadData];
     return YES;
 }
@@ -198,7 +199,28 @@ static int t = 1;
 
 #pragma mark -
 #pragma mark Button Click Methods
-/*
+#pragma mark - Button Clicked
+-(IBAction)btnHeaderClick:(id)sender
+{
+    UIButton* btn =(UIButton*)sender;
+    CGRect fr = btn.frame;
+    fr.origin.y = 42;
+    fr.size.height = 3;
+    UIImageView *imgLineMark = (UIImageView *)[self.view viewWithTag:21]; 
+    [UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.75];
+    imgLineMark.frame = fr; 
+    [UIView commitAnimations];
+    if (btn.tag==0)
+    {
+        NSLog(@"My badges");
+    }
+    else
+    {
+        NSLog(@"All Badges");
+    }
+}
+
 -(IBAction)discussionButton_Clicked
 {
 	[UIView beginAnimations:nil context:NULL];
@@ -247,7 +269,7 @@ static int t = 1;
 		
 		discussionViewVisible=1;
 	}
-	tblView.frame=CGRectMake(5, 45, discussionView.frame.size.width-30, discussionView.frame.size.height-30);
+	//tblView.frame=CGRectMake(5, 45, discussionView.frame.size.width-30, discussionView.frame.size.height-30);
 	topViewDiscussion.frame=CGRectMake(5, 5, self.view.frame.size.width-30, 38);
 	lblNote.frame=CGRectMake(topViewDiscussion.frame.origin.x+5, 5, 100, 30);
 	BtnMyNote.frame=CGRectMake(topViewDiscussion.frame.origin.x+topViewDiscussion.frame.size.width-200, 5, 70, 30);
@@ -264,10 +286,9 @@ static int t = 1;
 	
 	[UIView commitAnimations];
 }
-*/
+
 -(IBAction)addNoteButon_Clicked
 {
-	AddNoteView.hidden=FALSE;
 	txtNewField.text=@"";
 	AddNoteView.frame=CGRectMake(tblView.frame.origin.x, 1000, tblView.frame.size.width, tblView.frame.size.height);
 	[UIView beginAnimations:nil context:NULL];
@@ -281,21 +302,6 @@ static int t = 1;
 
 -(IBAction)sendNoteButon_Clicked
 {
-    
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Do you want to post comment?" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Facebook",@"Twitter",@"Both",@"None", nil];
-      actionSheet.tag=1;
-    [actionSheet showInView:self.view];
-
-    
-          
-    
-    
-}
-
--(void)dismissAddNoteView
-{
-
-    
 	AddNoteView.frame=tblView.frame;
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.75];
@@ -304,33 +310,7 @@ static int t = 1;
 	[UIView setAnimationTransition:UIViewAnimationTransitionNone forView:AddNoteView cache:NO];
 	AddNoteView.frame=CGRectMake(tblView.frame.origin.x, 1000, tblView.frame.size.width, tblView.frame.size.height);
 	[UIView commitAnimations];
-	AddNoteView.hidden=TRUE;
-	
-	if ([txtNewField.text length]>0) 
-	{
-		NSMutableDictionary *tempDic1 = [[NSMutableDictionary alloc]init];
-		[tempDic1 setValue:[NSString stringWithFormat:@"%d",(11440+t)] forKey:@"NoteId"];
-		t++;
-		[tempDic1 setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"userName"] forKey:@"name"];
-		[tempDic1 setValue:@"Notes_person.png" forKey:@"image"];
-		[tempDic1 setValue:txtNewField.text forKey:@"text"];
-		[tempDic1 setValue:@"Penatibus. Cum sociis natoque..." forKey:@"subtitle"];
-		[tempDic1 setValue:@"0" forKey:@"hasChild"];
-		[tempDic1 setValue:@"" forKey:@"parentNoteId"];
-		[tempDic1 setValue:@"1" forKey:@"showTextField"];//My Value
-		[tempDic1 setValue:@"0" forKey:@"isExpanded"];//My Value
-		[arrAllNotes addObject:tempDic1];
-		[tempDic1 release];
-		
-		arrToShow= [self GetParentNotes:arrAllNotes];
-		
-		[tblView reloadData];
-		
-	}
- 	
 	[txtNewField resignFirstResponder];
-    
-
 }
 
 -(IBAction)myNoteButon_Clicked
@@ -344,120 +324,6 @@ static int t = 1;
 	myNoteSelected = 0;
 
 	imgLine.frame=CGRectMake(BtnEveryone.frame.origin.x, 30, BtnEveryone.frame.size.width, 3);
-}
--(void)postReplyonSocialNW:(NSString *)str
-{
-
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Do you want to post comment?" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Facebook",@"Twitter",@"Both",@"None", nil];
-    actionSheet.tag=2;
-    [actionSheet showInView:self.view];
-    postText=str;
-    [postText retain];
-    
-}
-
-#pragma mark
-#pragma mark ActionSheet  Methods
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (actionSheet.tag==1) 
-    {
-        if (buttonIndex==0) 
-        {
-            SHKItem *item=[SHKItem text:txtNewField.text];
-            //SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Hi this is for test.."];
-            [NSClassFromString(@"SHKFacebook") performSelector:@selector(shareItem:) withObject:item];
-            
-        }
-        else if(buttonIndex==1)
-        {
-            SHKItem *item=[SHKItem text:txtNewField.text];
-            
-            // + (SHKItem *)image:(UIImage *)image title:(NSString *)title
-            // SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Leave life king size.."];
-            [NSClassFromString(@"SHKTwitter") performSelector:@selector(shareItem:) withObject:item];
-            
-        }
-        else if(buttonIndex==2)
-        {
-            SHKItem *item=[SHKItem text:txtNewField.text];
-            //SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Hi this is for test.."];
-            [NSClassFromString(@"SHKFacebook") performSelector:@selector(shareItem:) withObject:item];
-            
-            
-            SHKItem *item1=[SHKItem text:txtNewField.text];
-            
-            // + (SHKItem *)image:(UIImage *)image title:(NSString *)title
-            // SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Leave life king size.."];
-            [NSClassFromString(@"SHKTwitter") performSelector:@selector(shareItem:) withObject:item1];
-            
-            
-            
-            
-        }
-        else if(buttonIndex==3)
-        {
-            
-        }
-        [self dismissAddNoteView];
- 
-    }
-    else
-    {
-        if (buttonIndex==0) 
-        {
-            SHKItem *item=[SHKItem text:postText];
-            //SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Hi this is for test.."];
-            [NSClassFromString(@"SHKFacebook") performSelector:@selector(shareItem:) withObject:item];
-            
-        }
-        else if(buttonIndex==1)
-        {
-            SHKItem *item=[SHKItem text:postText];
-            
-            // + (SHKItem *)image:(UIImage *)image title:(NSString *)title
-            // SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Leave life king size.."];
-            [NSClassFromString(@"SHKTwitter") performSelector:@selector(shareItem:) withObject:item];
-            
-        }
-        else if(buttonIndex==2)
-        {
-            SHKItem *item=[SHKItem text:postText];
-            //SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Hi this is for test.."];
-            [NSClassFromString(@"SHKFacebook") performSelector:@selector(shareItem:) withObject:item];
-            
-            
-            SHKItem *item1=[SHKItem text:postText];
-            
-            // + (SHKItem *)image:(UIImage *)image title:(NSString *)title
-            // SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Leave life king size.."];
-            [NSClassFromString(@"SHKTwitter") performSelector:@selector(shareItem:) withObject:item1];
-            
-            
-            
-            
-        }
-        else if(buttonIndex==3)
-        {
-            
-        }
-        
-
-    }
-}
-
-
-#pragma mark
-#pragma mark Alert view Methods
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex==1) 
-    {
-        SHKItem *item=[SHKItem text:@"Let enjoy the world.."];
-        //SHKItem *item=[SHKItem image:[UIImage imageNamed:@"UserProfile.png"] title:@"Hi this is for test.."];
-        [NSClassFromString(@"SHKFacebook") performSelector:@selector(shareItem:) withObject:item];
-
-    }
 }
 
 
@@ -570,7 +436,7 @@ static int t = 1;
 	
 	if (cell == nil) 
 	{
-        cell = [[[discussionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
+        cell = [[[discussionCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier]autorelease];
 		
 	}
 	
@@ -618,7 +484,6 @@ static int t = 1;
 			cell.txtBackgroundImage.frame=CGRectMake(100, 115, 426, 40);
 		}
 	}
-
 
 	
 	cell.lblName.text=[[arrToShow objectAtIndex:indexPath.row] valueForKey:@"name"];
@@ -683,11 +548,6 @@ static int t = 1;
 	else
 	{
 		//Add Note
-//		//Add child
-//		[[arrToShow objectAtIndex:indexPath.row] setValue:@"1" forKey:@"hasChild"];
-//		[self AddChildNotes:indexPath];
-//		[[arrToShow objectAtIndex:indexPath.row] setValue:@"1" forKey:@"isExpanded"];
-//		[[arrToShow objectAtIndex:indexPath.row] setValue:@"1" forKey:@"WhiteBg"];
 	}
 	
 	[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(ReloadTable) userInfo:nil repeats:NO];
@@ -736,8 +596,6 @@ static int t = 1;
 	discussionCell *cell = (discussionCell *)[[textField superview] superview];
 	NSIndexPath *path = [tblView indexPathForCell:cell];
     
-    [self postReplyonSocialNW:textField.text];
-    
    // tblView.frame = CGRectMake(tblView.frame.origin.x, tblView.frame.origin.y, tblView.frame.size.width, tblView.frame.size.height + 255);
     
 	/*
@@ -749,60 +607,28 @@ static int t = 1;
 	 */
 	if ([textField.text length]>0) 
 	{
-		if ([[[arrToShow objectAtIndex:path.row] valueForKey:@"parentNoteId"] isEqualToString:@""]) 
-		{
-			[[arrToShow objectAtIndex:path.row] setValue:@"0" forKey:@"showTextField"];
-			[[arrToShow objectAtIndex:path.row] setValue:@"1" forKey:@"hasChild"];
-			[[arrToShow objectAtIndex:path.row] setValue:@"1" forKey:@"isExpanded"];
-			[[arrToShow objectAtIndex:path.row] setValue:@"1" forKey:@"WhiteBg"];
-			NSMutableDictionary *tempDic = [[NSMutableDictionary alloc]init];
-			[tempDic setValue:@"11245" forKey:@"NoteId"];
-			[tempDic setValue:@"Test User" forKey:@"name"];
-			[tempDic setValue:@"Notes_person.png" forKey:@"image"];
-			[tempDic setValue:[NSString stringWithFormat:@"%@",textField.text] forKey:@"text"];
-			[tempDic setValue:@"Test text Test text Test text" forKey:@"subtitle"];
-			[tempDic setValue:@"0" forKey:@"hasChild"];
-			[tempDic setValue:[NSString stringWithFormat:@"%@",[[arrToShow objectAtIndex:path.row] valueForKey:@"NoteId"]] forKey:@"parentNoteId"];
-			[tempDic setValue:@"0" forKey:@"showTextField"];//My Value
-			[tempDic setValue:@"0" forKey:@"isExpanded"];//My Value
-			
-			
-			
-			NSIndexPath *parentIndexPath = [NSIndexPath indexPathForRow:(path.row -  [[[arrToShow objectAtIndex:path.row] valueForKey:@"No_ofChild"] intValue]) inSection:path.section];
-			
-			
-			[arrAllNotes addObject:tempDic];
-			[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerMethod:) userInfo:parentIndexPath repeats:NO];
-			
-		}
-		else
-		{
-			[[arrToShow objectAtIndex:path.row] setValue:@"0" forKey:@"showTextField"];
-			NSMutableDictionary *tempDic = [[NSMutableDictionary alloc]init];
-			[tempDic setValue:@"11345" forKey:@"NoteId"];
-			[tempDic setValue:@"Test User" forKey:@"name"];
-			[tempDic setValue:@"Notes_person.png" forKey:@"image"];
-			[tempDic setValue:[NSString stringWithFormat:@"%@",textField.text] forKey:@"text"];
-			[tempDic setValue:@"Test text Test text Test text Test text" forKey:@"subtitle"];
-			[tempDic setValue:@"0" forKey:@"hasChild"];
-			[tempDic setValue:[NSString stringWithFormat:@"%@",[[arrToShow objectAtIndex:path.row] valueForKey:@"parentNoteId"]] forKey:@"parentNoteId"];
-			[tempDic setValue:@"0" forKey:@"showTextField"];//My Value
-			[tempDic setValue:@"0" forKey:@"isExpanded"];//My Value
-			
-			
-			
-			NSIndexPath *parentIndexPath = [NSIndexPath indexPathForRow:(path.row -  [[[arrToShow objectAtIndex:path.row] valueForKey:@"No_ofChild"] intValue]) inSection:path.section];
-			
-			
-			[self removeChildNotes:parentIndexPath];
-			[arrAllNotes addObject:tempDic];
-			[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerMethod:) userInfo:parentIndexPath repeats:NO];
-			
-		}
-
+		[[arrToShow objectAtIndex:path.row] setValue:@"0" forKey:@"showTextField"];
+		NSMutableDictionary *tempDic = [[NSMutableDictionary alloc]init];
+		[tempDic setValue:@"11345" forKey:@"NoteId"];
+		[tempDic setValue:@"Test User" forKey:@"name"];
+		[tempDic setValue:@"Notes_person.png" forKey:@"image"];
+		[tempDic setValue:[NSString stringWithFormat:@"%@",textField.text] forKey:@"text"];
+		[tempDic setValue:@"" forKey:@"subtitle"];
+		[tempDic setValue:@"0" forKey:@"hasChild"];
+		[tempDic setValue:[NSString stringWithFormat:@"%@",[[arrToShow objectAtIndex:path.row] valueForKey:@"parentNoteId"]] forKey:@"parentNoteId"];
+		[tempDic setValue:@"0" forKey:@"showTextField"];//My Value
+		[tempDic setValue:@"0" forKey:@"isExpanded"];//My Value
+		
+		
+		
+		NSIndexPath *parentIndexPath = [NSIndexPath indexPathForRow:(path.row -  [[[arrToShow objectAtIndex:path.row] valueForKey:@"No_ofChild"] intValue]) inSection:path.section];
+		
+		
+		[self removeChildNotes:parentIndexPath];
+		[arrAllNotes addObject:tempDic];
+		[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerMethod:) userInfo:parentIndexPath repeats:NO];
 	}
 	[textField resignFirstResponder];
-	[tblView reloadData];
 	return YES;
 }
 

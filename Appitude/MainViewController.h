@@ -25,6 +25,8 @@
 
     IBOutlet UIView *vWBook;
     IBOutlet UIView *vWFontSize;
+    IBOutlet UIView *vwRegistration;
+    IBOutlet UITextField *txtScreenName,*txtEmailid;
     UIButton *selectedBtn;
     BOOL isPotrait;
     int selectedViewIndex;
@@ -79,6 +81,11 @@
 - (IBAction) slidingStarted:(id)sender;
 - (IBAction) slidingEnded:(id)sender;
 - (IBAction) doneClicked:(id)sender;
+- (IBAction)registerBtnClicked:(id)sender;
+
+-(BOOL) isEmail:(NSString*) email;
+- (void) CallRegistrationWS;
+
 @property(nonatomic,retain)    UIView *viewForOpacity;
 
 - (void) loadSpine:(int)spineIndex atPageIndex:(int)pageIndex highlightSearchResult:(SearchResult*)theResult;
